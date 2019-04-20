@@ -49,7 +49,7 @@ class Happiness extends Component{
 
 	updateBar = () => {
     //const timeElapsed = tihiivedncs.state.lastHappyDate.getTime()
-    if(((new Date - this.state.lastHappyDate) / 60000) >= this.state.count) {
+    if(((new Date() - this.state.lastHappyDate) / 60000) >= this.state.count) {
 			console.log("banana")
 			if(this.state.happiness > 0) {
 				const happiness = this.state.happiness - 1;
