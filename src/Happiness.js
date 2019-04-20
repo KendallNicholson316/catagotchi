@@ -24,7 +24,8 @@ class Happiness extends Component{
 		if(this.state.happiness < 6) {
 			happiness = this.state.happiness + 1;
 		}
-    this.setState({lastHappyDate, happiness})
+		const count = 1
+    this.setState({lastHappyDate, happiness, count})
 
 	}
 
@@ -41,7 +42,8 @@ class Happiness extends Component{
 					happiness = 6
 				}
 			}
-			this.setState({lastHappyDate, happiness})
+			const count = 1
+			this.setState({lastHappyDate, happiness, count})
 
 		}
 
