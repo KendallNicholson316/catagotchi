@@ -16,7 +16,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <SignIn />
+        <Header startDate={this.state.startDate} />
       </div>
     );
   }
