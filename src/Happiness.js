@@ -49,7 +49,7 @@ class Happiness extends Component{
 
 	updateBar = () => {
     //const timeElapsed = tihiivedncs.state.lastHappyDate.getTime()
-    if(((new Date - this.state.lastHappyDate) / 60000) >= this.state.count) {
+    if(((new Date() - this.state.lastHappyDate) / 60000) >= this.state.count) {
 			console.log("banana")
 			if(this.state.happiness > 0) {
 				const happiness = this.state.happiness - 1;
@@ -66,11 +66,29 @@ class Happiness extends Component{
 				<div>
 					<ProgressBar percentage={(this.state.happiness/6) * 100} />
 				</div>
-				<button className="pet" onClick={this.pet}><span role="img" aria-label="hand">✋</span></button>
-  		  <button className="play" onClick={this.play}><span role="img" aria-label="yarn">🧶</span></button>
+				<div>
+					<button className="pet" style={styles.pet} onClick={this.pet}><span role="img" aria-label="hand">✋</span></button>
+  		  	<button className="play" style={styles.play} onClick={this.play}><span role="img" aria-label="yarn">🧶</span></button>
+				</div>
 			</div>
 		);
 	}
+}
+
+const styles = {
+	pet: {
+		float: 'left',
+		marginTop: '5%',
+		marginLeft: '20%',
+		borderRadius: '50%',
+	},
+	
+	play: {
+		float: 'right',
+		marginTop: '5%',
+		marginRight: '20%',
+		borderRadius: '50%',
+	},
 }
 
 export default Happiness
