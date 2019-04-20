@@ -12,7 +12,7 @@ const Header = (props) => {
 			<div style={styles.hungry}>
 				<Hunger startDate={props.startDate}/>
 			</div>
-			<div class="clear" style={styles.clear}>
+			<div className="clear" style={styles.clear}>
 			</div>
     </div>
   )

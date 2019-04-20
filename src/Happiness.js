@@ -66,11 +66,29 @@ class Happiness extends Component{
 				<div>
 					<ProgressBar percentage={(this.state.happiness/6) * 100} />
 				</div>
-				<button className="pet" onClick={this.pet}><span role="img" aria-label="hand">✋</span></button>
-  		  <button className="play" onClick={this.play}><span role="img" aria-label="yarn">🧶</span></button>
+				<div>
+					<button className="pet" style={styles.pet} onClick={this.pet}><span role="img" aria-label="hand">✋</span></button>
+  		  	<button className="play" style={styles.play} onClick={this.play}><span role="img" aria-label="yarn">🧶</span></button>
+				</div>
 			</div>
 		);
 	}
+}
+
+const styles = {
+	pet: {
+		float: 'left',
+		marginTop: '5%',
+		marginLeft: '20%',
+		borderRadius: '50%',
+	},
+	
+	play: {
+		float: 'right',
+		marginTop: '5%',
+		marginRight: '20%',
+		borderRadius: '50%',
+	},
 }
 
 export default Happiness
