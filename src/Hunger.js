@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import ProgressBar from './ProgressBar'
 
 class Hunger extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      fullness: 0,
+      fullness: 6,
       count: 1,
       lastFed: this.props.startDate
     }
@@ -29,10 +30,12 @@ class Hunger extends Component {
   }
 
   decreaseFullness = () => {
-    if((((new Date) - this.state.lastFed.getTime()) / (1 * 60 * 60 * 1000)) >= this.state.count) {
+    if((((new Date) - this.state.lastFed.getTime()) / (60 * 1000)) >= this.state.count) {
       const count = this.state.count + 1
-      const fullness = this.state.fullness - 1
-
+			let fullness = 0
+			if(this.state.fullness > 0) {
+      	fullness = this.state.fullness - 1
+			}
       if(fullness == 0) {
       }
 
@@ -54,6 +57,9 @@ class Hunger extends Component {
   render() {
     return (
       <div className="Hunger">
+        <div>
+          <ProgressBar percentage={(this.state.fullness/6) * 100} />
+        </div>
         <button className="MealButton" onClick={this.feedMeal}>
           <span role="img" aria-label="plate">🍽</span>
         </button>
