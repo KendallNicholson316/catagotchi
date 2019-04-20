@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ProgressBar from './ProgressBar'
 
 class Happiness extends Component{
 	constructor(props) {
@@ -62,6 +63,9 @@ class Happiness extends Component{
 	render() {
 		return ( 
 			<div className="Happiness">
+				<div>
+					<ProgressBar percentage={(this.state.happiness/6) * 100} />
+				</div>
 				<button className="pet" onClick={this.pet}><span role="img" aria-label="hand">✋</span></button>
   		  <button className="play" onClick={this.play}><span role="img" aria-label="yarn">🧶</span></button>
 			</div>
