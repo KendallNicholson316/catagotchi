@@ -1,12 +1,21 @@
 import React, { Component } from 'react'
 
 class Hunger extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       fullness: 6,
+      count: 1,
       lastFed: this.props.startDate
     }
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(this.decreaseFullness, 1)
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval)
   }
 
   feedMeal = () => {
@@ -20,15 +29,14 @@ class Hunger extends Component {
   }
 
   decreaseFullness = () => {
-    if(lastFed.getTime() % 3600000) {
-
+    if((((new Date) - this.state.lastFed.getTime()) / (1 * 60 * 60 * 1000)) >= this.state.count) {
+      const count = this.state.count + 1
       const fullness = this.state.fullness - 1
 
       if(fullness == 0) {
-        this.props.ded()
       }
 
-      this.setState({ fullness })
+      this.setState({ fullness, count })
     }
   }
 
@@ -39,7 +47,7 @@ class Hunger extends Component {
       this.props.sickoMode()
     }
 
-    lastFed = new Date()
+    const lastFed = new Date()
     this.setState({ fullness, lastFed })
   }
 
@@ -47,13 +55,15 @@ class Hunger extends Component {
     return (
       <div className="Hunger">
         <button className="MealButton" onClick={this.feedMeal}>
-          🍽
+          <span role="img" aria-label="plate">🍽</span>
         </button>
 
         <button className="SnackButton" onClick={this.feedSnack}>
-          🐟
+          <span role="img" aria-label="fish">🐟</span>
         </button>
       </div>
     )
   }
 }
+
+export default Hunger
