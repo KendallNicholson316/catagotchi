@@ -4,7 +4,7 @@ class Hunger extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      fullness: 6,
+      fullness: 0,
       count: 1,
       lastFed: this.props.startDate
     }
