@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import Header from './Header'
+import SignIn from './SignIn'
 
 class App extends Component {
   constructor() {
@@ -15,7 +16,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header startDate={this.state.startDate} />
+        <SignIn />
       </div>
     );
   }
