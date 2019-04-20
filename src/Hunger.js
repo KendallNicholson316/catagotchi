@@ -26,7 +26,8 @@ class Hunger extends Component {
     }
 
     const lastFed = new Date()
-    this.setState({ fullness, lastFed })
+		const count = 1
+    this.setState({ fullness, lastFed, count })
   }
 
   decreaseFullness = () => {
@@ -51,7 +52,8 @@ class Hunger extends Component {
     }
 
     const lastFed = new Date()
-    this.setState({ fullness, lastFed })
+		const count = 1
+    this.setState({ fullness, lastFed, count })
   }
 
   render() {
