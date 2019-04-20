@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 import Header from './Header'
+//import SignIn from './SignIn'
 import Body from './Body'
 
 class App extends Component {
