@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import Header from './Header'
+import Body from './Body'
 
 class App extends Component {
   constructor() {
@@ -16,6 +17,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header startDate={this.state.startDate} />
+        <Body />
       </div>
     );
   }
