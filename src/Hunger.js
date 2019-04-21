@@ -45,11 +45,19 @@ class Hunger extends Component {
   }
 
   feedSnack = () => {
-    const fullness = 3
-
-    if(this.state.fullness === 6) {
+    let fullness = 3
+ 		
+		if(this.state.fullness === 6) {
       this.props.sickoMode()
     }
+
+		if(this.state.fullness <= 3) {
+			fullness = this.state.fullness + 3		
+		}
+
+		else {
+			fullness = 6
+		} 
 
     const lastFed = new Date()
 		const count = 1
