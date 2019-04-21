@@ -5,7 +5,7 @@ import Happiness from './Happiness'
 
 const Header = (props) => {
   return (
-    <div className="Header">
+    <div className="Header" style={styles.header}>
 			<div style={styles.happy}>
       	<Happiness startDate={props.startDate}/>
       </div>
@@ -19,8 +19,13 @@ const Header = (props) => {
 }
 
 const styles = {
+	header: {
+		height: '30%',
+	},
+
   happy: {
     float: 'left',
+		height: '30%',
 		marginLeft: '100px',
 		marginTop: '50px',
 		marginBottom: '50px',
@@ -32,6 +37,7 @@ const styles = {
 
   hungry: {
     float: 'right',
+		height: '30%',
     marginRight: '100px',
     marginTop: '50px',
     marginBottom: '50px',
