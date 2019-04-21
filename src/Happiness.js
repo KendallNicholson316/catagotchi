@@ -24,7 +24,8 @@ class Happiness extends Component{
 		if(this.state.happiness < 6) {
 			happiness = this.state.happiness + 1;
 		}
-    this.setState({lastHappyDate, happiness})
+		const count = 1
+    this.setState({lastHappyDate, happiness, count})
 
 	}
 
@@ -41,7 +42,8 @@ class Happiness extends Component{
 					happiness = 6
 				}
 			}
-			this.setState({lastHappyDate, happiness})
+			const count = 1
+			this.setState({lastHappyDate, happiness, count})
 
 		}
 
@@ -66,9 +68,9 @@ class Happiness extends Component{
 				<div>
 					<ProgressBar percentage={(this.state.happiness/6) * 100} />
 				</div>
-				<div>
+				<div style={styles.buttons}>
 					<button className="pet" style={styles.pet} onClick={this.pet}><span role="img" aria-label="hand">✋</span></button>
-  		  	<button className="play" style={styles.play} onClick={this.play}><span role="img" aria-label="yarn">🧶</span></button>
+  		  	<button className="play" style={styles.play} onClick={this.play}><span role="img" aria-label="yarn">🐁</span></button>
 				</div>
 			</div>
 		);
@@ -78,14 +80,22 @@ class Happiness extends Component{
 const styles = {
 	pet: {
 		float: 'left',
-		marginTop: '5%',
+		background: '#ffeffb',
+		width: '12%',
+		border: '2px solid #ffcef5',
+		fontSize: '3vh',
+		marginTop: '2%',
 		marginLeft: '20%',
 		borderRadius: '50%',
 	},
 	
 	play: {
 		float: 'right',
-		marginTop: '5%',
+		background: '#ffeffb',
+    width: '12%',
+    border: '2px solid #ffcef5',
+    fontSize: '3vh',
+		marginTop: '2%',
 		marginRight: '20%',
 		borderRadius: '50%',
 	},

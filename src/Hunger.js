@@ -26,7 +26,8 @@ class Hunger extends Component {
     }
 
     const lastFed = new Date()
-    this.setState({ fullness, lastFed })
+		const count = 1
+    this.setState({ fullness, lastFed, count })
   }
 
   decreaseFullness = () => {
@@ -44,14 +45,23 @@ class Hunger extends Component {
   }
 
   feedSnack = () => {
-    const fullness = 3
-
-    if(this.state.fullness === 6) {
+    let fullness = 3
+ 		
+		if(this.state.fullness === 6) {
       this.props.sickoMode()
     }
 
+		if(this.state.fullness <= 3) {
+			fullness = this.state.fullness + 3		
+		}
+
+		else {
+			fullness = 6
+		} 
+
     const lastFed = new Date()
-    this.setState({ fullness, lastFed })
+		const count = 1
+    this.setState({ fullness, lastFed, count })
   }
 
   render() {
@@ -60,16 +70,41 @@ class Hunger extends Component {
         <div>
           <ProgressBar percentage={(this.state.fullness/6) * 100} />
         </div>
-        <button className="MealButton" onClick={this.feedMeal}>
+        <button className="MealButton" style={styles.meal} onClick={this.feedMeal}>
           <span role="img" aria-label="plate">🍽</span>
         </button>
 
-        <button className="SnackButton" onClick={this.feedSnack}>
+        <button className="SnackButton" style={styles.snack} onClick={this.feedSnack}>
           <span role="img" aria-label="fish">🐟</span>
         </button>
       </div>
     )
   }
 }
+
+const styles = {
+  snack: {
+    float: 'left',
+    background: '#ffeffb',
+    width: '12%',
+    border: '2px solid #ffcef5',
+    fontSize: '3vh',
+    marginTop: '2%',
+    marginLeft: '20%',
+    borderRadius: '50%',
+  },
+
+  meal: {
+    float: 'right',
+    background: '#ffeffb',
+    width: '12%',
+    border: '2px solid #ffcef5',
+    fontSize: '3vh',
+    marginTop: '2%',
+    marginRight: '20%',
+    borderRadius: '50%',
+  },
+}
+
 
 export default Hunger
