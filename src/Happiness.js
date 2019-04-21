@@ -70,7 +70,7 @@ class Happiness extends Component{
 				</div>
 				<div style={styles.buttons}>
 					<button className="pet" style={styles.pet} onClick={this.pet}><span role="img" aria-label="hand">✋</span></button>
-  		  	<button className="play" style={styles.play} onClick={this.play}><span role="img" aria-label="yarn">🧶</span></button>
+  		  	<button className="play" style={styles.play} onClick={this.play}><span role="img" aria-label="yarn">🐁</span></button>
 				</div>
 			</div>
 		);
@@ -78,17 +78,12 @@ class Happiness extends Component{
 }
 
 const styles = {
-	buttons: {
-		height: '100%',
-	},
-
 	pet: {
 		float: 'left',
-		background: 'white',
-		width: '10%',
-		height: '10%',
-		border: '2px solid #818187',
-		fontSize: '2vh',
+		background: '#ffeffb',
+		width: '12%',
+		border: '2px solid #ffcef5',
+		fontSize: '3vh',
 		marginTop: '2%',
 		marginLeft: '20%',
 		borderRadius: '50%',
@@ -96,11 +91,10 @@ const styles = {
 	
 	play: {
 		float: 'right',
-		background: 'white',
-    width: '10%',
-		height: '50%',
-    border: '2px solid #818187',
-    fontSize: '2vh',
+		background: '#ffeffb',
+    width: '12%',
+    border: '2px solid #ffcef5',
+    fontSize: '3vh',
 		marginTop: '2%',
 		marginRight: '20%',
 		borderRadius: '50%',
