@@ -3,9 +3,7 @@ import './App.css';
 
 import base, { auth } from './base'
 
-import Header from './Header'
 import SignIn from './SignIn'
-import Body from './Body'
 import Game from './Game'
 
 class App extends Component {
