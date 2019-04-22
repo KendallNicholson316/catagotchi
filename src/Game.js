@@ -6,7 +6,7 @@ import Body from './Body'
 const Game = (props) => {
   return (
     <div className="Game">
-      <Header startDate={props.startDate} />
+      <Header startDate={props.startDate} uid={props.uid}/>
       <Body />
       <button onClick={props.signOut}>➘</button>
     </div>

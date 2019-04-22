@@ -6,38 +6,38 @@ import Happiness from './Happiness'
 const Header = (props) => {
   return (
     <div className="Header" style={styles.header}>
-			<div style={styles.happy}>
-      	<Happiness startDate={props.startDate}/>
+      <div style={styles.happy}>
+        <Happiness startDate={props.startDate} uid={props.uid}/>
       </div>
-			<div style={styles.hungry}>
-				<Hunger startDate={props.startDate}/>
-			</div>
-			<div className="clear" style={styles.clear}>
-			</div>
+      <div style={styles.hungry}>
+        <Hunger startDate={props.startDate} uid={props.uid} />
+      </div>
+      <div className="clear" style={styles.clear}>
+      </div>
     </div>
   )
 }
 
 const styles = {
-	header: {
-		height: '30%',
-	},
+  header: {
+    height: '30%',
+  },
 
   happy: {
     float: 'left',
-		height: '30%',
-		marginLeft: '100px',
-		marginTop: '50px',
-		marginBottom: '50px',
+    height: '30%',
+    marginLeft: '100px',
+    marginTop: '50px',
+    marginBottom: '50px',
   },
 
-	clear: {
-		clear: 'both',
-	},
+  clear: {
+    clear: 'both',
+  },
 
   hungry: {
     float: 'right',
-		height: '30%',
+    height: '30%',
     marginRight: '100px',
     marginTop: '50px',
     marginBottom: '50px',
