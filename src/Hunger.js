@@ -44,7 +44,7 @@ class Hunger extends Component {
 
   feedMeal = () => {
     const fullness = 6
-    if(this.props.fullness > 3) {
+    if(this.state.fullness > 3) {
       this.props.sickoMode()
     }
 

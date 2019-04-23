@@ -37,7 +37,7 @@ class Happiness extends Component{
   componentWillUnmount() {
     clearInterval(this.interval);
   
-    base.removeBinding(this.usersHappiness)
+    base.removeBinding(this.usersHappinessRef)
   }
 
   pet = () => {
