@@ -9,8 +9,19 @@ const Game = (props) => {
       <Header startDate={props.startDate} uid={props.uid}/>
       <Body />
       <button onClick={props.signOut}>➘</button>
-    </div>
+   	</div>
   )
+
+
 }
+
+const styles = {
+	canvas: {
+		width: '100%',
+		height: '100%',
+	},
+
+}
+
 
 export default Game
