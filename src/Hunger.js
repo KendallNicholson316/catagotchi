@@ -8,96 +8,95 @@ class Hunger extends Component {
     super(props)
 
     this.state = {
-      usersFullness: {},
       fullness: 6,
       count: 1,
-      lastFed: this.props.startDate
+      lastFed: this.props.startDate,
     }
   }
 
   componentDidMount() {
     this.interval = setInterval(this.decreaseFullness, 1)
-    this.usersFullnessRef = base.syncState('usersFullness', {
+
+    this.fullnessRef = base.syncState(`users/${this.props.uid}/fullness`, {
       context: this,
-      state: 'usersFullness',
+      state: 'fullness',
     })
 
-    let fullness = 6
+    this.lastFedRef = base.syncState(`users/${this.props.uid}/lastFed`, {
+      context: this,
+      state: 'lastFed',
+    })
 
-    if(typeof this.state.usersFullness[this.props.uid] === 'undefined') {
-      const usersFullness = {...this.state.usersFullness}
-      usersFullness[this.props.uid] = 6
-      this.setState({ usersFullness })
-    }
+    if(this.props.newUser === false) {
+      const hoursPassed = new Date() - this.state.lastFed
+      const reduceFullnessBy = Math.floor(hoursPassed / (1000 * 60))
 
-    else {
-      fullness = this.state.usersFullness[this.props.uid]
+      const fullness =  this.state.fullness - 
+        reduceFullnessBy
+      
       this.setState({ fullness })
     }
   }
 
   componentWillUnmount() {
     clearInterval(this.interval)
-    
-    base.removeBinding(this.usersFullnessRef)
+
+    base.removeBinding(this.fullnessRef)
+    base.removeBinding(this.lastFedRef)
   }
 
   feedMeal = () => {
     const fullness = 6
-    if(this.state.fullness > 3) {
-      this.props.sickoMode()
-    }
+    const originalFullness = this.state.fullness
 
     const lastFed = new Date()
     const count = 1
 
-    const usersFullness = {...this.state.usersFullness}
-    usersFullness[this.props.uid] = fullness
-    
-    this.setState({ fullness, lastFed, count, usersFullness })
+    this.setState({ fullness, lastFed, count })
+
+    if(originalFullness > 3) {
+      this.props.sickoMode()
+    }
   }
 
   decreaseFullness = () => {
     if(((new Date() - this.state.lastFed) / (60 * 1000)) >= this.state.count) {
       const count = this.state.count + 1
       let fullness = 0
-      
+
       if(this.state.fullness > 0) {
         fullness = this.state.fullness - 1
       }
 
+      console.log(fullness)
+      this.setState({ count, fullness })
+
       if(fullness === 0) {
       }
-
-      const usersFullness = {...this.state.usersFullness}
-      usersFullness[this.props.uid] = fullness
-
-      this.setState({ fullness, count, usersFullness })
     }
   }
 
   feedSnack = () => {
-    let fullness = 3
-
-    if(this.state.fullness === 6) {
-      this.props.sickoMode()
-    }
+    let fullness = 6
+    const originalFullness = this.state.fullness
 
     if(this.state.fullness <= 3) {
       fullness = this.state.fullness + 3		
     }
 
-    else {
+    else if(this.state.fullness >= 3 && this.state.fullness <= 5) {
       fullness = 6
     } 
 
     const lastFed = new Date()
     const count = 1
 
-    const usersFullness = {...this.state.usersFullness}
-    usersFullness[this.props.uid] = fullness
+    this.setState({ fullness, count, lastFed })
 
-    this.setState({ fullness, lastFed, count, usersFullness })
+    if(originalFullness === 6) {
+      this.props.sickoMode()
+    }
+
   }
 
   render() {
