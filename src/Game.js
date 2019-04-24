@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import base from './base'
+
 import Header from './Header'
 import Body from './Body'
 
@@ -14,14 +16,19 @@ class Game extends Component {
       localStorage.setItem('startDate', JSON.stringify(startDate))
     }
 
+    let sick = JSON.parse(localStorage.getItem('sick'))
+
     this.state = {
       startDate: startDate,
-      sick: false,
+      usersSickness: {},
+      sick: sick || false,
     }
   }
 
   toggleSick = () => {
     const sick = !this.state.sick
+
+    localStorage.setItem('sick', JSON.stringify(sick))
     this.setState({ sick })
   }
 
