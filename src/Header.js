@@ -7,10 +7,10 @@ const Header = (props) => {
   return (
     <div className="Header" style={styles.header}>
       <div style={styles.happy}>
-        <Happiness startDate={props.startDate} uid={props.uid}/>
+        <Happiness newUser={props.newUser} startDate={props.startDate} uid={props.uid} />
       </div>
       <div style={styles.hungry}>
-        <Hunger startDate={props.startDate} uid={props.uid} />
+        <Hunger sickoMode={props.sickoMode} newUser={props.newUser} startDate={props.startDate} sick={props.sick} uid={props.uid} />
       </div>
       <div className="clear" style={styles.clear}>
       </div>

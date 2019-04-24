@@ -10,10 +10,11 @@ class App extends Component {
   constructor() {
     super()
     const user = JSON.parse(localStorage.getItem('user'))
+
     this.state = {
       user: user || {},
       users: {},
-      startDate: new Date()
+      newUser: false,
     }
   }
 
@@ -28,11 +29,12 @@ class App extends Component {
         }
       }
     )
-  
+
     this.usersRef = base.syncState('users', {
       context: this,
       state: 'users',
     })
+
   }
 
   handleAuth(oAuthUser) {
@@ -56,9 +58,15 @@ class App extends Component {
 
   syncUsers = (user) => {
     const users = {...this.state.users}
+    let newUser = this.state.newUser
+
+    if(typeof users[user.uid] === 'undefined') {
+      newUser = true
+    }
+
     users[user.uid] = user
 
-    this.setState({ users })
+    this.setState({ users, newUser })
   }
 
   handleUnauth() {
@@ -83,12 +91,12 @@ class App extends Component {
   }
 
   render() {
-    let element = this.isSignedIn() ? <Game signOut={this.signOut} startDate={this.state.startDate} uid={this.state.user.uid} /> : <SignIn />
-    return (
-      <div className="App">
-        {element}
-      </div>
-    );
+    let element = this.isSignedIn() ? <Game signOut={this.signOut} uid={this.state.user.uid} newUser={this.state.newUser} /> : <SignIn />
+      return (
+        <div className="App">
+          {element}          
+        </div>
+      );
   }
 }
 

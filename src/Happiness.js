@@ -6,17 +6,24 @@ import base from './base'
 class Happiness extends Component{
   constructor(props) {
     super(props)
+
+    let lastHappy = Date.parse(JSON.parse(localStorage.getItem('lastHappy')))
+
+    if(isNaN(lastHappy)) {
+      lastHappy = this.props.startDate
+      localStorage.setItem('lastHappy', JSON.stringify(lastHappy))
+    }
+
     this.state = {
       usersHappiness: {},
-      lastHappyDate: this.props.startDate,
+      lastHappy: lastHappy,
       happiness: 6,
       count: 1,
+      newUser: false,
     }
   }
 
   componentDidMount() {
-    this.interval = setInterval(this.updateBar, 1)
-    
     this.usersHappinessRef = base.syncState('usersHappiness', {
       context: this,
       state: 'usersHappiness',
@@ -24,38 +31,41 @@ class Happiness extends Component{
 		console.log(this.props.uid + "\n" + this.state.usersHappiness)
 
     if(typeof this.state.usersHappiness[this.props.uid] === 'undefined') {
+      const newUser = true
       const usersHappiness= {...this.state.usersHappiness}
       usersHappiness[this.props.uid] = 6
-      this.setState({ usersHappiness })
+      this.setState({ newUser, usersHappiness })
     }
 
     else {
       const happiness = this.state.userHappiness[this.props.uid]
       this.setState({ happiness })
     }
+
+    this.interval = setInterval(this.updateBar, 1)
   }
 
   componentWillUnmount() {
     clearInterval(this.interval);
-  
+
     base.removeBinding(this.usersHappinessRef)
   }
 
   pet = () => {
     let happiness = this.state.happiness
-    const lastHappyDate = new Date()
+    const lastHappy = new Date()
 
     if(this.state.happiness < 6) {
       happiness = this.state.happiness + 1;
     }
 
     const count = 1
-    
+
     const usersHappiness = {...this.state.usersHappiness}
     usersHappiness[this.props.uid] = happiness
 
-    this.setState({ lastHappyDate, happiness, count, usersHappiness })
-
+    this.setState({ lastHappy, happiness, count, usersHappiness })
+    localStorage.setItem('lastHappy', JSON.stringify(lastHappy))
   }
 
   play = () => {
@@ -63,45 +73,56 @@ class Happiness extends Component{
     var rand = Math.random()
 
     if(rand > .5) {
-      const lastHappyDate = new Date()
-      
+      const lastHappy = new Date()
+
       if(this.state.happiness < 6) {
         if(this.state.happiness < 3) {
           happiness = this.state.happiness + 3
         }		
-        
+
         else {
           happiness = 6
         }
       }
 
       const count = 1
-      
+
       const usersHappiness = {...this.state.usersHappiness}
       usersHappiness[this.props.uid] = happiness
 
-      this.setState({ lastHappyDate, happiness, count, usersHappiness })
-
+      this.setState({ lastHappy, happiness, count, usersHappiness })
+      localStorage.setItem('lastHappy', JSON.stringify(lastHappy))
     }
-
   }
 
   updateBar = () => {
-    if(((new Date() - this.state.lastHappyDate) / 60000) >= this.state.count) {
+    if(this.state.newUser === false) {
+      const hoursPassed = new Date() - this.state.lastHappy
+      const reduceHappinessBy = Math.floor(hoursPassed / (1000 * 60))
+      const happiness =  this.state.happiness - reduceHappinessBy
 
-      if(this.state.happiness > 0) {
-        const happiness = this.state.happiness - 1;
+      const usersHappiness = {...this.state.usersHappiness}
+      usersHappiness[this.props.uid] = happiness
+      this.setState({ happiness, usersHappiness })
+    }
+
+    else {
+      if(((new Date() - this.state.lastHappy) / (60 * 1000)) >= this.state.count) {
+        const count = this.state.count + 1
+        let happiness = 0
+
+        if(this.state.happiness > 0) {
+          happiness = this.state.happiness - 1
+        }
+
         const usersHappiness = {...this.state.usersHappiness}
-
         usersHappiness[this.props.uid] = happiness
 
-        this.setState({ happiness, usersHappiness })
+        this.setState({ count, happiness, usersHappiness })
+
+        if(happiness === 0) {
+        }
       }
-
-      const count = this.state.count + 1
-
-
-      this.setState({ count })
     }
   }
 
