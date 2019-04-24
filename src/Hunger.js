@@ -21,7 +21,7 @@ class Hunger extends Component {
       count: 1,
       lastFed: lastFed,
       newUser: false,
-      sick: false,
+      sick: this.props.sick,
     }
   }
 
@@ -136,11 +136,11 @@ class Hunger extends Component {
         <div>
           <ProgressBar percentage={(this.state.fullness/6) * 100} />
         </div>
-        <button className="MealButton" style={styles.meal} onClick={this.feedMeal}>
+        <button className="MealButton" disabled={this.props.sick} style={styles.meal} onClick={this.feedMeal}>
           <span role="img" aria-label="plate">🍽</span>
         </button>
 
-        <button className="SnackButton" style={styles.snack} onClick={this.feedSnack}>
+        <button className="SnackButton" disabled={this.props.sick} style={styles.snack} onClick={this.feedSnack}>
           <span role="img" aria-label="fish">🐟</span>
         </button>
       </div>
