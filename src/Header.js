@@ -10,7 +10,7 @@ const Header = (props) => {
         <Happiness newUser={props.newUser} startDate={props.startDate} uid={props.uid} />
       </div>
       <div style={styles.hungry}>
-        <Hunger newUser={props.newUser} startDate={props.startDate} uid={props.uid} />
+        <Hunger sickoMode={props.sickoMode} newUser={props.newUser} startDate={props.startDate} sick={props.sick} uid={props.uid} />
       </div>
       <div className="clear" style={styles.clear}>
       </div>

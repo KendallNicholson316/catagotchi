@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import ReactPlayer from 'react-player'
+
+import base from './base'
 
 import Header from './Header'
 import Body from './Body'
@@ -14,19 +17,34 @@ class Game extends Component {
       localStorage.setItem('startDate', JSON.stringify(startDate))
     }
 
+    let sick = JSON.parse(localStorage.getItem('sick'))
+
     this.state = {
       startDate: startDate,
+      usersSickness: {},
+      sick: sick || false,
     }
   }
 
+  toggleSick = () => {
+    const sick = !this.state.sick
+
+    localStorage.setItem('sick', JSON.stringify(sick))
+    this.setState({ sick })
+  }
+
   render() {
-    return (
+    let element = this.state.sick ? <button onClick={this.toggleSick}>heal</button> : <span></span>
+      
+      return (
       <div className="Game">
-        <Header startDate={this.state.startDate} newUser={this.props.newUser} uid={this.props.uid} />
+        <Header startDate={this.state.startDate} sick={this.state.sick} newUser={this.props.newUser} sickoMode={this.toggleSick} uid={this.props.uid} />
         <Body />
         <button onClick={this.props.signOut}>➘</button>
+        {element}
+        <ReactPlayer height="0" width="0" playing={this.state.sick} url="https://www.youtube.com/watch?v=Nhsb4MXunMo" /> 
       </div>
-    )
+      )
   }
 }
 
