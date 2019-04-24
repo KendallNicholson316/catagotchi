@@ -10,17 +10,10 @@ class App extends Component {
   constructor() {
     super()
     const user = JSON.parse(localStorage.getItem('user'))
-    let startDate = Date.parse(JSON.parse(localStorage.getItem('startDate')))
-
-    if(isNaN(startDate)) {
-      startDate = new Date()
-      localStorage.setItem('startDate', JSON.stringify(startDate))
-    }
 
     this.state = {
       user: user || {},
       users: {},
-      startDate: startDate,
       newUser: false,
     }
   }
@@ -98,7 +91,7 @@ class App extends Component {
   }
 
   render() {
-    let element = this.isSignedIn() ? <Game signOut={this.signOut} startDate={this.state.startDate} uid={this.state.user.uid} newUser={this.state.newUser} /> : <SignIn />
+    let element = this.isSignedIn() ? <Game signOut={this.signOut} uid={this.state.user.uid} newUser={this.state.newUser} /> : <SignIn />
       return (
         <div className="App">
           {element}
