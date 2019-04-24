@@ -76,7 +76,7 @@ class Hunger extends Component {
   decreaseFullness = () => {
     if(this.state.newUser === false) {
       const hoursPassed = new Date() - this.state.lastFed
-      const reduceFullnessBy = Math.floor(hoursPassed / (1000))
+      const reduceFullnessBy = Math.floor(hoursPassed / (1000 * 60))
       const fullness =  this.state.fullness - reduceFullnessBy
 
       const usersFullness = {...this.state.usersFullness}
@@ -85,7 +85,7 @@ class Hunger extends Component {
     }
 
     else {
-      if(((new Date() - this.state.lastFed) / (1000)) >= this.state.count) {
+      if(((new Date() - this.state.lastFed) / (1000 * 60)) >= this.state.count) {
         const count = this.state.count + 1
         let fullness = 0
 

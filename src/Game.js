@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import ReactPlayer from 'react-player'
 
-import base from './base'
-
 import Header from './Header'
 import Body from './Body'
 
