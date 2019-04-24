@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import base, { auth } from './base'
-
+import catAngel from './catAngel.png'
 import SignIn from './SignIn'
 import Game from './Game'
 
@@ -108,10 +108,11 @@ class App extends Component {
   render() {
     let element
     let signOut
-
+		let deadPic
     if(this.state.dead) {
-      element = <h2>DEAD</h2>
-        signOut = <button onClick={this.signOut} >SIGN OUT </button>
+      element = <h2 style={styles.h2}>DEAD</h2>
+			deadPic = <img style={styles.image} src={catAngel} ></img>
+      signOut = <button style={styles.signout} onClick={this.signOut} >SIGN OUT </button>
     }
 
     else if(this.isSignedIn()) {
@@ -123,12 +124,37 @@ class App extends Component {
     }
 
       return (
-        <div className="App">
-          {element}          
+        <div style={styles.back} className="App">
+          {element}
+					{deadPic}          
           {signOut}
         </div>
       );
   }
+}
+
+const styles = {
+  h2: {
+		fontSize: '15vh',
+    height: '20vh',
+  },
+
+	image: {
+		float: 'left',
+		height: '30vh',
+		marginBottom: '5vh',
+		marginLeft: '75vh',		
+	},
+
+  signout: {
+		float: 'right',
+		marginRight: '80vh',
+    backgroundColor: '#fbedff',
+    borderColor: '#e6ccff',
+    borderRadius: '30%',
+    fontSize: '1.75vh',
+    height: '4vh',
+  },
 }
 
 export default App;
