@@ -15,6 +15,7 @@ class App extends Component {
       user: user || {},
       users: {},
       newUser: false,
+      dead: false,
     }
   }
 
@@ -79,8 +80,11 @@ class App extends Component {
   }
 
   signOut = () => {
+    if(this.state.dead === true) {
+      this.setState({ dead: false })
+    }
+
     auth.signOut().then(() => {
-      // Sign-out successful.
     }).catch(function(error) {
       //Sign-out unsuccessful.
     });
@@ -90,11 +94,38 @@ class App extends Component {
     return this.state.user.uid
   }
 
+  kill = () => {
+    this.setState({ user: {}})
+    localStorage.removeItem('lastFed')
+    localStorage.removeItem('lastHappy')
+    localStorage.removeItem('startDate')
+    localStorage.removeItem('sick')
+
+    const dead = true
+    this.setState({ dead })
+  }
+
   render() {
-    let element = this.isSignedIn() ? <Game signOut={this.signOut} uid={this.state.user.uid} newUser={this.state.newUser} /> : <SignIn />
+    let element
+    let signOut
+
+    if(this.state.dead) {
+      element = <h2>DEAD</h2>
+        signOut = <button onClick={this.signOut} >SIGN OUT </button>
+    }
+
+    else if(this.isSignedIn()) {
+      element = <Game kill={this.kill} signOut={this.signOut} uid={this.state.user.uid} newUser={this.state.newUser} />
+    }
+
+    else {
+      element = <SignIn />
+    }
+
       return (
         <div className="App">
           {element}          
+          {signOut}
         </div>
       );
   }
