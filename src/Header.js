@@ -20,10 +20,12 @@ const Header = (props) => {
 
 const styles = {
   header: {
-    height: '30%',
+		width: '100%',
+    height: '100%',
   },
 
   happy: {
+		display: 'inline-block',
     float: 'left',
     height: '30%',
     marginLeft: '100px',
@@ -36,6 +38,7 @@ const styles = {
   },
 
   hungry: {
+		display: 'inline-block',
     float: 'right',
     height: '30%',
     marginRight: '100px',

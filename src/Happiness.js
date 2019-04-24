@@ -28,6 +28,7 @@ class Happiness extends Component{
       context: this,
       state: 'usersHappiness',
     })
+		console.log(this.props.uid + "\n" + this.state.usersHappiness)
 
     if(typeof this.state.usersHappiness[this.props.uid] === 'undefined') {
       const newUser = true
@@ -142,6 +143,7 @@ class Happiness extends Component{
 
 const styles = {
   pet: {
+		display: 'block',
     float: 'left',
     background: '#ffeffb',
     width: '12%',
@@ -153,6 +155,7 @@ const styles = {
   },
 
   play: {
+		display: 'block',
     float: 'right',
     background: '#ffeffb',
     width: '12%',
