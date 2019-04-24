@@ -10,10 +10,18 @@ class App extends Component {
   constructor() {
     super()
     const user = JSON.parse(localStorage.getItem('user'))
+		let startDate = Date.parse(JSON.parse(localStorage.getItem('startDate')))
+		console.log("after parse "+ startDate +" | "+ localStorage.getItem('startDate'))
+		if(isNaN(startDate)) {
+			startDate = new Date()
+
+			localStorage.setItem('startDate', JSON.stringify(startDate))
+		}
+
     this.state = {
       user: user || {},
       users: {},
-      startDate: new Date(),
+      startDate: startDate,
       newUser: false,
     }
   }
@@ -34,6 +42,7 @@ class App extends Component {
       context: this,
       state: 'users',
     })
+
   }
 
   handleAuth(oAuthUser) {
