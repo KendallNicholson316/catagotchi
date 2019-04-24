@@ -21,6 +21,7 @@ class Hunger extends Component {
       count: 1,
       lastFed: lastFed,
       newUser: false,
+      sick: false,
     }
   }
 
@@ -64,7 +65,10 @@ class Hunger extends Component {
     this.setState({ fullness, usersFullness, lastFed, count })
 
     localStorage.setItem('lastFed', JSON.stringify(lastFed)) 
+
     if(originalFullness > 3) {
+      const sick = true
+      this.setState({ sick })
       this.props.sickoMode()
     }
   }

@@ -16,13 +16,19 @@ class Game extends Component {
 
     this.state = {
       startDate: startDate,
+      sick: false,
     }
+  }
+
+  sickoMode = () => {
+    const sick = true
+    this.setState({ sick })
   }
 
   render() {
     return (
       <div className="Game">
-        <Header startDate={this.state.startDate} newUser={this.props.newUser} uid={this.props.uid} />
+        <Header startDate={this.state.startDate} newUser={this.props.newUser} sickoMode={this.sickoMode} uid={this.props.uid} />
         <Body />
         <button onClick={this.props.signOut}>➘</button>
       </div>
