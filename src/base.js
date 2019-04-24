@@ -16,7 +16,8 @@ const config = {
 const app = firebase.initializeApp(config)
 
 //configure database
-const db = firebase.database(app)
+export const db = firebase.database(app)
+export const d = firebase.database
 const base = Rebase.createClass(db)
 
 //configure authentication

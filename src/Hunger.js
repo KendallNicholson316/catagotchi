@@ -7,87 +7,108 @@ class Hunger extends Component {
   constructor(props) {
     super(props)
 
+    let lastFed = Date.parse(JSON.parse(localStorage.getItem('lastFed')))
+
+    if(isNaN(lastFed)) {
+      lastFed = this.props.startDate
+
+      localStorage.setItem('lastFed', JSON.stringify(lastFed))
+    }
+
     this.state = {
-      usersFullness: {},
       fullness: 6,
+      usersFullness: {},
       count: 1,
-      lastFed: this.props.startDate
+      lastFed: lastFed,
+      newUser: false,
     }
   }
 
   componentDidMount() {
-    this.interval = setInterval(this.decreaseFullness, 1)
     this.usersFullnessRef = base.syncState('usersFullness', {
       context: this,
       state: 'usersFullness',
     })
 
-    let fullness = 6
-
     if(typeof this.state.usersFullness[this.props.uid] === 'undefined') {
-      const usersFullness = {...this.state.usersFullness}
+      const newUser = true
+      const usersFullness= {...this.state.usersFullness}
       usersFullness[this.props.uid] = 6
-      this.setState({ usersFullness })
+      this.setState({ newUser, usersFullness })
     }
 
     else {
-      fullness = this.state.usersFullness[this.props.uid]
+      const fullness = this.state.userFullness[this.props.uid]
       this.setState({ fullness })
     }
+
+    this.interval = setInterval(this.decreaseFullness, 1)
   }
 
   componentWillUnmount() {
     clearInterval(this.interval)
-    
+
     base.removeBinding(this.usersFullnessRef)
   }
 
   feedMeal = () => {
     const fullness = 6
-    if(this.state.fullness > 3) {
-      this.props.sickoMode()
-    }
+    const originalFullness = this.state.fullness
 
     const lastFed = new Date()
     const count = 1
 
     const usersFullness = {...this.state.usersFullness}
     usersFullness[this.props.uid] = fullness
-    
-    this.setState({ fullness, lastFed, count, usersFullness })
+
+    this.setState({ fullness, usersFullness, lastFed, count })
+
+    localStorage.setItem('lastFed', JSON.stringify(lastFed)) 
+    if(originalFullness > 3) {
+      this.props.sickoMode()
+    }
   }
 
   decreaseFullness = () => {
-    if(((new Date() - this.state.lastFed) / (60 * 1000)) >= this.state.count) {
-      const count = this.state.count + 1
-      let fullness = 0
-      
-      if(this.state.fullness > 0) {
-        fullness = this.state.fullness - 1
-      }
-
-      if(fullness === 0) {
-      }
+    if(this.state.newUser === false) {
+      const hoursPassed = new Date() - this.state.lastFed
+      const reduceFullnessBy = Math.floor(hoursPassed / (1000 * 60))
+      const fullness =  this.state.fullness - reduceFullnessBy
 
       const usersFullness = {...this.state.usersFullness}
-      usersFullness[this.props.uid] = fullness
+      usersFullness[this.props.uid] = fullness			
+      this.setState({ fullness, usersFullness })
+    }
 
-      this.setState({ fullness, count, usersFullness })
+    else {
+      if(((new Date() - this.state.lastFed) / (60 * 1000)) >= this.state.count) {
+        const count = this.state.count + 1
+        let fullness = 0
+
+        if(this.state.fullness > 0) {
+          fullness = this.state.fullness - 1
+        }
+
+        const usersFullness = {...this.state.usersFullness}
+        usersFullness[this.props.uid] = fullness
+
+        this.setState({ count, fullness, usersFullness })
+
+        if(fullness === 0) {
+        }
+      }
     }
   }
 
   feedSnack = () => {
-    let fullness = 3
+    let fullness = 6
+    const originalFullness = this.state.fullness
 
-    if(this.state.fullness === 6) {
-      this.props.sickoMode()
-    }
-
-    if(this.state.fullness <= 3) {
+    if(this.state.fullness < 3) {
       fullness = this.state.fullness + 3		
     }
 
-    else {
+    else if(this.state.fullness >= 3 && this.state.fullness <= 5) {
       fullness = 6
     } 
 
@@ -97,7 +118,12 @@ class Hunger extends Component {
     const usersFullness = {...this.state.usersFullness}
     usersFullness[this.props.uid] = fullness
 
-    this.setState({ fullness, lastFed, count, usersFullness })
+    this.setState({ usersFullness, fullness, count, lastFed })
+    localStorage.setItem('lastFed', JSON.stringify(lastFed))
+
+    if(originalFullness === 6) {
+      this.props.sickoMode()
+    }
   }
 
   render() {
