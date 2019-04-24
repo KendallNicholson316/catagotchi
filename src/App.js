@@ -94,7 +94,7 @@ class App extends Component {
     let element = this.isSignedIn() ? <Game signOut={this.signOut} uid={this.state.user.uid} newUser={this.state.newUser} /> : <SignIn />
       return (
         <div className="App">
-          {element}
+          {element}          
         </div>
       );
   }

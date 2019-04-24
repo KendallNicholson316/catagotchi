@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactPlayer from 'react-player'
 
 import base from './base'
 
@@ -34,14 +35,16 @@ class Game extends Component {
 
   render() {
     let element = this.state.sick ? <button onClick={this.toggleSick}>heal</button> : <span></span>
-    return (
+      
+      return (
       <div className="Game">
         <Header startDate={this.state.startDate} sick={this.state.sick} newUser={this.props.newUser} sickoMode={this.toggleSick} uid={this.props.uid} />
         <Body />
         <button onClick={this.props.signOut}>➘</button>
         {element}
+        <ReactPlayer height="0" width="0" playing={this.state.sick} url="https://www.youtube.com/watch?v=Nhsb4MXunMo" /> 
       </div>
-    )
+      )
   }
 }
 
