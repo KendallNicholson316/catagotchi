@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import ReactPlayer from 'react-player'
 
-import base from './base'
-
 import Header from './Header'
 import Body from './Body'
 
@@ -37,8 +35,9 @@ class Game extends Component {
     let element = this.state.sick ? <button style={styles.heal} onClick={this.toggleSick}>➕ heal</button> : <span></span>
       
       return (
+    
       <div className="Game" style={styles.game}>
-        <Header startDate={this.state.startDate} sick={this.state.sick} newUser={this.props.newUser} sickoMode={this.toggleSick} uid={this.props.uid} />
+        <Header kill={this.props.kill} startDate={this.state.startDate} sick={this.state.sick} newUser={this.props.newUser} sickoMode={this.toggleSick} uid={this.props.uid} />
         <Body />
 				<div style={styles.tools}>
         	<button style={styles.signout} onClick={this.props.signOut}>🚪 Sign out</button>

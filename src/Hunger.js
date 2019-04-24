@@ -85,7 +85,7 @@ class Hunger extends Component {
     }
 
     else {
-      if(((new Date() - this.state.lastFed) / (60 * 1000)) >= this.state.count) {
+      if(((new Date() - this.state.lastFed) / (1000 * 60)) >= this.state.count) {
         const count = this.state.count + 1
         let fullness = 0
 
@@ -99,6 +99,7 @@ class Hunger extends Component {
         this.setState({ count, fullness, usersFullness })
 
         if(fullness === 0) {
+          this.props.kill()
         }
       }
     }
